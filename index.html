@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>智慧能耗云</title>
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="Cache-Control" content="no-siteapp" />
+	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="./static/css/font.css">
+	<link rel="stylesheet" href="./static/css/main.css">
+	<script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<div class="main-content">
+		<div class="search-content">
+			<div class="layui-col-md12">
+				<div class="layui-inline">
+					<div class="layui-input-inline input-date">
+						<input type="text" class="layui-input" id="test6" placeholder="请选择日期">
+					</div>
+					<button type="button" class="layui-btn">查询</button>
+				</div>
+			</div>
+		</div>
+		<div class="tab-content">
+			<div class="layui-tab layui-tab-card">
+				<ul class="layui-tab-title">
+					<li class="layui-this">电站</li>
+				</ul>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show">
+						<form class="layui-form" action=""></form>
+							<div class="layui-form-item">
+								<label class="layui-form-label">级别类型:</label>
+								<div class="layui-input-block">
+									<div class="layui-btn-group">
+										<button type="button" class="layui-btn">全部</button>
+										<button type="button" class="layui-btn layui-btn-primary">消缺工单</button>
+										<button type="button" class="layui-btn layui-btn-primary">告警工单</button>
+										<button type="button" class="layui-btn layui-btn-primary">抢修工单</button>
+										<button data-type="4" type="button" class="layui-btn layui-btn-primary">随工工单</button>
+										<button type="button" class="layui-btn layui-btn-primary">电试工单</button>
+										<button type="button" class="layui-btn layui-btn-primary">操作工单</button>
+									</div>
+								</div>
+							</div>
+							<form class="layui-form" action="" lay-filter="searchForm" id="searchForm">
+								<div class="layui-form-item">
+									<label class="layui-form-label">处理状态:</label>
+									<div class="layui-input-block">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="未开始">
+										<input type="checkbox" name="like1[read]" lay-skin="primary" title="执行中">
+										<input type="checkbox" name="like1[read]" lay-skin="primary" title="已完成">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">逾期状态:</label>
+									<div class="layui-input-block">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="逾期">
+									</div>
+								</div>
+								<div class="layui-form-item">
+									<label class="layui-form-label">条件筛选:</label>
+									<div class="layui-input-block">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="我发起的" checked="">
+										<input type="checkbox" name="like1[read]" lay-skin="primary" title="我执行的">
+									</div>
+								</div>
+								<div class="layui-form-item work" style="display: none;">
+									<label class="layui-form-label">随工类型:</label>
+									<div class="layui-input-block">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="项目施工">
+										<input type="checkbox" name="like1[read]" lay-skin="primary" title="故障抢修">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="售后服务">
+										<input type="checkbox" name="like1[read]" lay-skin="primary" title="送电">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="检修">
+										<input type="checkbox" name="like1[read]" lay-skin="primary" title="预防性试验">
+										<input type="checkbox" name="like1[write]" lay-skin="primary" title="其他">
+									</div>
+								</div>
+							</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="table-content">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					<table class="layui-table" lay-filter="demo" lay-data="{
+						id:'demo',
+						url:'',
+						page:false,
+						cellMinWidth: 80,
+						data:[
+						{
+						'id': 10000,
+						'username': 'user-0',
+						'sex': '女',
+						'city': '城市-0',
+						'sign': '签名-0',
+						'time':'2019-12-11'
+						},
+						{
+						'id': 10000,
+						'username': 'user-0',
+						'sex': '女',
+						'city': '城市-0',
+						'sign': '签名-0',
+						'time':'2019-12-11'
+						},
+						],
+						method:'post'  //提交方式
+						}">
+						<thead>
+							<tr>
+								<th lay-data="{field:'id',align:'center'}">工单编号</th>
+								<th lay-data="{field:'username',align:'center',width:500,}">内容</th>
+								<th lay-data="{field:'sex',align:'center'}">类型</th>
+								<th lay-data="{field:'city',align:'center'}">状态</th>
+								<th lay-data="{field:'sign',align:'center'}">处理意见</th>
+								<th lay-data="{field:'time',align:'center'}">创建日期</th>
+								<th lay-data="{fixed: 'right',align:'center', toolbar: '#barDemo'}">查看</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/html" id="barDemo">
+		<a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="detail">详情</a>
+	</script>
+	<script type="text/javascript">
+		//一般直接写在一个js文件中
+		layui.use(['layer', 'form','laydate','table'], function () {
+			var layer = layui.layer,
+				form = layui.form,
+				$ = layui.jquery,
+				laydate = layui.laydate,
+				table = layui.table;
+
+				laydate.render({
+					elem: '#test6',
+					range: true
+				});
+			// $("#reset").click(function(){
+			// 	$("#searchForm")[0].reset();
+            //     layui.form.render();
+			// })
+			 //监听工具条
+			table.on('tool(demo)', function(obj){
+				var data = obj.data;
+				if(obj.event === 'detail'){
+				layer.alert('编辑行：<br>'+ JSON.stringify(data))
+				}
+			});
+			$(".layui-btn-group button").click(function(){
+				$(this).removeClass("layui-btn-primary").siblings().addClass("layui-btn-primary")
+				if($(this).attr('data-type')==='4'){
+					$('.work').show()
+				} else {
+					$('.work').hide()
+				}
+			})
+
+		});
+	</script>
+</body>
+
+</html>

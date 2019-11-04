@@ -1,0 +1,31 @@
+@charset "utf-8";
+@import "../css/normalize.css";
+@import "../../lib/layui/css/layui.css";
+.main-content{
+    padding:20px;
+    box-sizing: border-box;
+}
+.search-content{
+    height:40px;
+}
+.input-date {
+    width: 200px;
+}
+.table-content {
+    border-width: 1px;
+    border-color: #e6e6e6;
+    border-style: solid;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.1);
+}
+.layui-table-cell {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    position: relative;
+    box-sizing: border-box;
+}
+.layui-btn-group button.active {
+    background-color: #009688;
+    color: #fff;
+}
