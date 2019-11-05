@@ -29,3 +29,12 @@
     background-color: #009688;
     color: #fff;
 }
+#dialog1 ,#dialog-new-order,#order-form{
+    padding: 20px;
+    box-sizing: border-box;
+}
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #009688 !important;
+    background-color: #009688 !important;
+    color: #fff;
+}

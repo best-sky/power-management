@@ -435,3 +435,6 @@ ul,ol,li{
 .color000{
     color: #000;
 }
+.none {
+  display: none;
+}
