@@ -23,120 +23,19 @@
 					<div class="layui-input-inline input-date">
 						<input type="text" class="layui-input" id="search-date" placeholder="请选择日期">
 					</div>
-					<button id="search-order" type="button" class="layui-btn">查询</button>
-					<button id="new-order" type="button" class="layui-btn">创建</button>
+					<button data-type="3" id="search-order3" type="button" class="layui-btn">查询</button>
 				</div>
 			</div>
 		</div>
 		<div class="tab-content">
 			<div class="layui-tab layui-tab-card" lay-filter="tab">
 				<ul class="layui-tab-title">
-					<li class="layui-this">所有任务</li>
-					<!-- <li>我的</li> -->
+					<li>正在进行</li>
 				</ul>
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show">
-						<div class="layui-form-item">
-							<label class="layui-form-label">级别类型:</label>
-							<div class="layui-input-block">
-								<div class="layui-btn-group">
-									<button data-type="0" type="button" class="layui-btn active">全部</button>
-									<button data-type="1" type="button"
-										class="layui-btn layui-btn-primary">消缺工单</button>
-									<button data-type="2" type="button"
-										class="layui-btn layui-btn-primary">告警工单</button>
-									<button data-type="3" type="button"
-										class="layui-btn layui-btn-primary">抢修工单</button>
-									<button data-type="4" type="button"
-										class="layui-btn layui-btn-primary">随工工单</button>
-									<button data-type="5" type="button"
-										class="layui-btn layui-btn-primary">操作工单</button>
-								</div>
-							</div>
-						</div>
-						<form class="layui-form" action="" lay-filter="searchForm" id="searchForm">
-							<div class="layui-form-item">
-								<label class="layui-form-label">处理状态:</label>
-								<div class="layui-input-block">
-									<input type="radio" name="status" value="0" title="未开始">
-									<input type="radio" name="status" value="1" title="执行中">
-									<input type="radio" name="status" value="2" title="已完成">
-								</div>
-							</div>
-							<!-- <div class="layui-form-item">
-								<label class="layui-form-label">逾期状态:</label>
-								<div class="layui-input-block">
-									<input value="0" type="checkbox" name="overdue" lay-skin="primary" title="逾期">
-								</div>
-							</div> -->
-							<!-- <div class="layui-form-item">
-								<label class="layui-form-label">条件筛选:</label>
-								<div class="layui-input-block">
-									<input type="checkbox" name="initiate" lay-skin="primary" title="我发起的">
-									<input type="checkbox" name="execution" lay-skin="primary" title="我执行的">
-								</div>
-							</div> -->
-							<!-- <div class="layui-form-item work" style="display: none;">
-								<label class="layui-form-label">随工类型:</label>
-								<div class="layui-input-block">
-									<input type="checkbox" name="like1[write]" lay-skin="primary" title="项目施工">
-									<input type="checkbox" name="like1[read]" lay-skin="primary" title="故障抢修">
-									<input type="checkbox" name="like1[write]" lay-skin="primary" title="售后服务">
-									<input type="checkbox" name="like1[read]" lay-skin="primary" title="送电">
-									<input type="checkbox" name="like1[write]" lay-skin="primary" title="检修">
-									<input type="checkbox" name="like1[read]" lay-skin="primary" title="预防性试验">
-									<input type="checkbox" name="like1[write]" lay-skin="primary" title="其他">
-								</div>
-							</div> -->
-						</form>
-					</div>
-					<div class="layui-tab-item">
 						<table id="my-test" lay-filter="my-test"></table>
 					</div>
-				</div>
-			</div>
-		</div>
-		<div class="table-content">
-			<div class="layui-card">
-				<div class="layui-card-body">
-					<table id="all-test" lay-filter="all-test"></table>
-					<!-- <table class="layui-table" lay-filter="demo" lay-data="{
-						id:'demo',
-						url:'',
-						page:false,
-						cellMinWidth: 80,
-						data:[
-						{
-						'id': 10000,
-						'username': 'user-0',
-						'sex': '女',
-						'city': '城市-0',
-						'sign': '签名-0',
-						'time':'2019-12-11'
-						},
-						{
-						'id': 10000,
-						'username': 'user-0',
-						'sex': '女',
-						'city': '城市-0',
-						'sign': '签名-0',
-						'time':'2019-12-11'
-						},
-						],
-						method:'post'  //提交方式
-						}">
-						<thead>
-							<tr>
-								<th lay-data="{field:'id',align:'center'}">工单编号</th>
-								<th lay-data="{field:'username',align:'center',width:500,}">内容</th>
-								<th lay-data="{field:'sex',align:'center'}">类型</th>
-								<th lay-data="{field:'city',align:'center'}">状态</th>
-								<th lay-data="{field:'sign',align:'center'}">处理意见</th>
-								<th lay-data="{field:'time',align:'center'}">创建日期</th>
-								<th lay-data="{fixed: 'right',align:'center', toolbar: '#barDemo'}">查看</th>
-							</tr>
-						</thead>
-					</table> -->
 				</div>
 			</div>
 		</div>
@@ -154,7 +53,7 @@
 	<script type="text/html" id="barDemo4">
 		<a class="layui-btn layui-btn-primary layui-btn-sm" lay-event="del">删除</a>
 	</script>
-	<script type="text/javascript" src="./static/js/main.js"></script>
+    <script type="text/javascript" src="./static/js/main.js"></script>
 </body>
 <!-- 弹框 -->
 <div id="dialog1" style="display: none;">
@@ -426,7 +325,7 @@
 				<textarea name="otherInformation" placeholder="请输入内容" class="layui-textarea"></textarea>
 			</div>
 		</div>
-		<div class="layui-form-item layui-form-text">
+		<div class="layui-form-item layui-form-text" style="margin-bottom: 120px;">
 			<label class="layui-form-label">作业文档:</label>
 			<div class="layui-input-block">
 				<button type="button" class="layui-btn" id="upload2">添加文件</button>
@@ -444,12 +343,6 @@
 					</table>
 				</div>
 				<button type="button" class="layui-btn" id="testListAction2">开始上传</button>
-			</div>
-		</div>
-		<div class="layui-form-item layui-form-text" style="margin-bottom: 120px;">
-			<label class="layui-form-label">任务列表:</label>
-			<div class="layui-input-block test-box">
-				<table id="editTestList" lay-filter="editTestList"></table>
 			</div>
 		</div>
 		<div class="layui-form-item" style="margin-bottom: 120px;">

@@ -29,7 +29,7 @@
     background-color: #009688;
     color: #fff;
 }
-#dialog1 ,#dialog-new-order,#order-form,#add-test-form{
+#dialog1 ,#dialog-new-order,#order-form,#add-test-form,#edit-form{
     padding: 20px;
     box-sizing: border-box;
 }
