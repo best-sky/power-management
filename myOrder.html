@@ -325,7 +325,7 @@
 				<textarea name="otherInformation" placeholder="请输入内容" class="layui-textarea"></textarea>
 			</div>
 		</div>
-		<div class="layui-form-item layui-form-text" style="margin-bottom: 120px;">
+		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">作业文档:</label>
 			<div class="layui-input-block">
 				<button type="button" class="layui-btn" id="upload2">添加文件</button>
@@ -343,6 +343,12 @@
 					</table>
 				</div>
 				<button type="button" class="layui-btn" id="testListAction2">开始上传</button>
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text" style="margin-bottom: 120px;">
+			<label class="layui-form-label">任务列表:</label>
+			<div class="layui-input-block test-box">
+				<table id="editTestList" lay-filter="editTestList"></table>
 			</div>
 		</div>
 		<div class="layui-form-item" style="margin-bottom: 120px;">

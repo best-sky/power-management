@@ -1135,6 +1135,11 @@ layui.use(
           if ($('#dialog-new-order button.active').length !== 1) {
             layer.msg('请选择工单类型');
           } else {
+            if($('#dialog-new-order button.active').attr("data-type")==="4"){
+              $("#test-list-box").hide()
+            } else {
+              $("#test-list-box").show()
+            }
             layer.close(index);
             var type = {
               workorderType: $('#dialog-new-order button.active').attr(
