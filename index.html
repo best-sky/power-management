@@ -193,7 +193,7 @@
 			<div class="layui-col-sm6">
 				<label class="layui-form-label">创建人:</label>
 				<div class="layui-input-block">
-					<input value="admin" type="text" name="createAt" autocomplete="off" class="layui-input" disabled="">
+					<input id="addcreateAt" type="text" name="createAt" autocomplete="off" class="layui-input" disabled="">
 				</div>
 			</div>
 			<div class="layui-col-sm6">
@@ -322,15 +322,25 @@
 </div>
 <div id="add-test-form" class="none">
 	<div class="layui-form-item layui-col-space10">
-		<div class="layui-col-sm4">
-			<label class="layui-form-label" style="text-align: left;padding-left: 0;">工单类型:</label>
+	<form class="layui-form" action="" lay-filter="searchForm4" id="searchForm4">
+		<div class="layui-col-sm8" id="search-input" style="display: none;">
+			<label class="layui-form-label" style="text-align: left;padding-left: 0;">任务名称:</label>
 			<div class="layui-input-block">
 				<input type="text" name="testName" autocomplete="off" class="layui-input">
 			</div>
 		</div>
-		<div class="layui-col-sm8">
+		<div class="layui-col-sm8" id="select-input">
+			<label class="layui-form-label" style="text-align: left;padding-left: 0;">电站名称:</label>
+			<div class="layui-input-block">
+				<select name="serachContent" id="stationName" lay-filter="stationName">
+					<option value="">请选择电站名称</option>
+				</select>
+			</div>
+		</div>
+		<div class="layui-col-sm4">
 			<button id="search-test" type="button" class="layui-btn">查询任务</button>
 		</div>
+	</form>
 	</div>
 	<div class="layui-form-item">
 		<table id="addtestList" lay-filter="addtestList" id="addtestList"></table>

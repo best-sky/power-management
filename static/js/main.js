@@ -12,7 +12,27 @@ layui.use(
     var testList = [];
     var testData = [];
     var mydetailData = [];
-    var publicUrl = 'http://192.168.1.114:20012';
+    var publicUrl = 'http://192.168.1.118:20012';
+    // 上传文件路径
+    uploadUrl = '';
+    /**
+     *  @desc  获取url参数
+     *  @param  {String} url为穿过来的链接
+     *  @param  {String} id为参数名
+     */
+    function GetParam(url, id) {
+      url = url+ "";
+      regstr = "/(\\?|\\&)" + id + "=([^\\&]+)/";
+      reg = eval(regstr);
+      //eval可以将 regstr字符串转换为 正则表达式
+      result = url.match(reg);
+      if (result && result[2]) {
+          return result[2];
+      }
+    }
+    // 获取父级参数
+    var userId  =GetParam('http://114.214.164.146:20012/myFinishOrder.html?user_id=admin','user_id')
+    console.log(GetParam(window.parent.location.href,'user_id'))
     laydate.render({
       elem: '#search-date',
       range: true,
@@ -137,6 +157,8 @@ layui.use(
               url: '', //数据接口
               data: listData,
               loading: true,
+              page:false,
+              limit:9999999,
               cols: [
                 [
                   //表头
@@ -146,8 +168,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -187,7 +208,7 @@ layui.use(
         status: status,
         startTime: '',
         endTime: '',
-        operator: '343029'
+        operator: userId
       };
       $.ajax({
         url: publicUrl + '/console/selectWorkorder',
@@ -207,6 +228,8 @@ layui.use(
               elem: '#my-test',
               url: '', //数据接口
               data: listData,
+              page:false,
+              limit:9999999,
               cols: [
                 [
                   //表头
@@ -216,8 +239,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -275,6 +297,28 @@ layui.use(
               str += `<option value=${res.data[i].grId}>${res.data[i].grName}</option>`;
             }
             $('.selectTeam').append(str);
+          }
+          form.render('select');
+        }
+      }
+    });
+    // 初始化站点下拉菜单
+    $.ajax({
+      url: publicUrl + '/console/selectStation',
+      type: 'post',
+      contentType: 'application/json;charset=utf-8',
+      // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
+      dataType: 'json',
+      success: function(res) {
+        // 一旦设置的 dataType 选项，就不再关心 服务端 响应的 Content-Type 了
+        // 客户端会主观认为服务端返回的就是 JSON 格式的字符串
+        if (res.code === 200) {
+          var str = `<option value="">请选择电站名称</option>`;
+          if (res.code === 200) {
+            for (var i = 0; i < res.data.length; i++) {
+              str += `<option value=${res.data[i].stationId}>${res.data[i].stationName}</option>`;
+            }
+            $('#stationName').html(str);
           }
           form.render('select');
         }
@@ -378,6 +422,8 @@ layui.use(
               elem: '#all-test',
               url: '', //数据接口
               data: listData,
+              page:false,
+              limit:9999999,
               cols: [
                 [
                   //表头
@@ -387,8 +433,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -460,6 +505,8 @@ layui.use(
               elem: '#all-test',
               url: '', //数据接口
               data: listData,
+              page:false,
+              limit:9999999,
               cols: [
                 [
                   //表头
@@ -469,8 +516,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -517,7 +563,7 @@ layui.use(
         pageSize: 9999,
         startTime: startTime,
         endTime: endTime,
-        operator: '343029',
+        operator: userId,
         status: 0
       };
       $.ajax({
@@ -538,6 +584,8 @@ layui.use(
               elem: '#my-test',
               url: '', //数据接口
               data: listData,
+              page:false,
+              limit:9999999,
               cols: [
                 [
                   //表头
@@ -547,8 +595,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -595,7 +642,7 @@ layui.use(
         pageSize: 9999,
         startTime: startTime,
         endTime: endTime,
-        operator: '343029',
+        operator: userId,
         status: 1
       };
       $.ajax({
@@ -616,6 +663,8 @@ layui.use(
               elem: '#my-test',
               url: '', //数据接口
               data: listData,
+              page:false,
+              limit:9999999,
               cols: [
                 [
                   //表头
@@ -625,8 +674,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -673,7 +721,7 @@ layui.use(
         pageSize: 9999,
         startTime: startTime,
         endTime: endTime,
-        operator: '343029',
+        operator: userId,
         status: 2
       };
       $.ajax({
@@ -694,6 +742,8 @@ layui.use(
               elem: '#my-test',
               url: '', //数据接口
               data: listData,
+              page:false,
+                limit:9999999,
               cols: [
                 [
                   //表头
@@ -703,8 +753,7 @@ layui.use(
                   },
                   {
                     field: 'content',
-                    title: '内容',
-                    width: 500
+                    title: '内容'
                   },
                   {
                     field: 'workorderType',
@@ -754,6 +803,8 @@ layui.use(
               elem: '#testList',
               height: 260, //固定值
               url: '', //数据接口
+              page:false,
+              limit:9999999,
               data: [
                 {
                   id: 10000,
@@ -942,6 +993,7 @@ layui.use(
         done: function(res, index, upload) {
           if (res.code == 200) {
             //上传成功
+            uploadUrl = res.data
             var tr = demoListView2.find('tr#upload-' + index),
               tds = tr.children();
             tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
@@ -1004,6 +1056,7 @@ layui.use(
         done: function(res, index, upload) {
           if (res.code == 200) {
             //上传成功
+            uploadUrl = res.data
             var tr = demoListView.find('tr#upload-' + index),
               tds = tr.children();
             tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
@@ -1037,88 +1090,409 @@ layui.use(
         btn: ['确定', '取消'],
         area: ['60%', '500px'],
         success: function(index) {
-          table.render({
-            elem: '#addtestList',
-            height: 260, //固定值
-            url: '', //数据接口
-            data: [],
-            cols: [
-              [
-                //表头
-                { type: 'checkbox', fixed: 'left' },
-                {
-                  field: 'warningDataId',
-                  title: '工单编号',
-                  width: 180
-                },
-                {
-                  field: 'context',
-                  title: '工单内容'
-                },
-                {
-                  field: 'sex',
-                  title: '状态'
-                },
-                {
-                  field: 'city',
-                  title: '缺陷描述'
-                },
-                {
-                  field: 'sign',
-                  title: '缺陷来源'
-                },
-                {
-                  field: 'time',
-                  title: '发生时间'
-                }
+          if($('#dialog-new-order button.active').attr("data-type")==="1"){
+          
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              data:[],
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'stationName',
+                    title: '电站名称',
+                    width: 180
+                  },
+                  {
+                    field: 'flawGrade',
+                    title: '级别'
+                  },
+                  {
+                    field: 'eliminateStatus',
+                    title: '消缺状态'
+                  },
+                  {
+                    field: 'checkStatus',
+                    title: '审核状态'
+                  },
+                  {
+                    field: 'flawDescribe',
+                    title: '缺陷描述'
+                  },
+                  {
+                    field: 'source',
+                    title: '缺陷来源'
+                  },
+                  {
+                    field: 'discoverTime',
+                    title: '发生时间'
+                  }
+                ]
               ]
-            ]
-          });
+            });
+          }
+          if($('#dialog-new-order button.active').attr("data-type")==="2"){
+  
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              data: [],
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'warningDataId',
+                    title: '告警工单id'
+                  },
+                  {
+                    field: 'warningGradeName',
+                    title: '告警等级'
+                  },
+                  {
+                    field: 'warningType',
+                    title: '告警类型'
+                  },
+                  {
+                    field: 'context',
+                    title: '告警内容'
+                  },
+                  {
+                    field: 'happendDate',
+                    title: '发生时间'
+                  }
+                ]
+              ]
+            });
+          }
+          if($('#dialog-new-order button.active').attr("data-type")==="3"){
+    
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              loading: true,
+              data: [],
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'stationName',
+                    title: '电站名称'
+                  },
+                  {
+                    field: 'reconnaissanceStatus',
+                    title: '勘察状态'
+                  },
+                  {
+                    field: 'eliminateStatus',
+                    title: '解除状态'
+                  },
+                  {
+                    field: 'source',
+                    title: '故障来源'
+                  },
+                  {
+                    field: 'discoverDate',
+                    title: '发生时间'
+                  }
+                ]
+              ]
+            });
+          }
+          if($('#dialog-new-order button.active').attr("data-type")==="5"){
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              data: [],
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'stationName',
+                    title: '站点名称'
+                  },
+                  {
+                    field: 'taskname',
+                    title: '任务名称'
+                  },
+                  {
+                    field: 'operateType',
+                    title: '操作类型'
+                  },
+                  {
+                    field: 'createdAt',
+                    title: '创建人'
+                  },
+                  {
+                    field: 'mandatorAt',
+                    title: '命令人'
+                  },
+                  {
+                    field: 'guardianAt',
+                    title: '监护人'
+                  },
+                  {
+                    field: 'receiverAt',
+                    title: '接管人'
+                  },
+                  {
+                    field: 'operaterAt',
+                    title: '操作人'
+                  },
+                  {
+                    field: 'leadAt',
+                    title: '负责人'
+                  }
+                ]
+              ]
+            });
+          }
+          table.reload();
+          if($('#dialog-new-order button.active').attr("data-type")==="5"||$('#dialog-new-order button.active').attr("data-type")==="2"){
+            $("#select-input").hide()
+            $("#search-input").show()
+          } else {
+            $("#select-input").show()
+            $("#search-input").hide()  
+          }
+          $('#search-test').click()
         },
         yes: function(index, layero) {
           layer.close(index);
           var checkStatus = table.checkStatus('addtestList');
           console.log(checkStatus.data);
           testList = [];
-          checkStatus.data.forEach((arr, index) => {
-            testList.push(arr.warningDataId);
-          });
-          table.render({
-            elem: '#testList',
-            height: 260, //固定值
-            url: '', //数据接口
-            data: checkStatus.data,
-            cols: [
-              [
-                //表头
-                {
-                  field: 'warningDataId',
-                  title: '工单编号',
-                  width: 180
-                },
-                {
-                  field: 'context',
-                  title: '工单内容'
-                },
-                {
-                  field: 'sex',
-                  title: '状态'
-                },
-                {
-                  field: 'city',
-                  title: '缺陷描述'
-                },
-                {
-                  field: 'sign',
-                  title: '缺陷来源'
-                },
-                {
-                  field: 'time',
-                  title: '发生时间'
-                }
+          if($('#dialog-new-order button.active').attr("data-type")==="1"){
+            checkStatus.data.forEach((arr, index) => {
+              testList.push(arr.flawId);
+            });
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              loading: true,
+              data: checkStatus.data,
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'stationName',
+                    title: '电站名称',
+                    width: 180
+                  },
+                  {
+                    field: 'flawGrade',
+                    title: '级别'
+                  },
+                  {
+                    field: 'eliminateStatus',
+                    title: '消缺状态'
+                  },
+                  {
+                    field: 'checkStatus',
+                    title: '审核状态'
+                  },
+                  {
+                    field: 'flawDescribe',
+                    title: '缺陷描述'
+                  },
+                  {
+                    field: 'source',
+                    title: '缺陷来源'
+                  },
+                  {
+                    field: 'discoverTime',
+                    title: '发生时间'
+                  }
+                ]
               ]
-            ]
-          });
+            });
+          }
+          if($('#dialog-new-order button.active').attr("data-type")==="2"){
+            checkStatus.data.forEach((arr, index) => {
+              testList.push(arr.warningDataId);
+            });
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              loading: true,
+              data: checkStatus.data,
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'warningDataId',
+                    title: '告警工单id'
+                  },
+                  {
+                    field: 'warningGradeName',
+                    title: '告警等级'
+                  },
+                  {
+                    field: 'warningType',
+                    title: '告警类型'
+                  },
+                  {
+                    field: 'context',
+                    title: '告警内容'
+                  },
+                  {
+                    field: 'happendDate',
+                    title: '发生时间'
+                  }
+                ]
+              ]
+            });
+          }
+          if($('#dialog-new-order button.active').attr("data-type")==="3"){
+            checkStatus.data.forEach((arr, index) => {
+              testList.push(arr.breakdownDataId);
+            });
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              loading: true,
+              data: checkStatus.data,
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'stationName',
+                    title: '电站名称'
+                  },
+                  {
+                    field: 'reconnaissanceStatus',
+                    title: '勘察状态'
+                  },
+                  {
+                    field: 'eliminateStatus',
+                    title: '解除状态'
+                  },
+                  {
+                    field: 'source',
+                    title: '故障来源'
+                  },
+                  {
+                    field: 'discoverDate',
+                    title: '发生时间'
+                  }
+                ]
+              ]
+            });
+          }
+          if($('#dialog-new-order button.active').attr("data-type")==="5"){
+            
+            checkStatus.data.forEach((arr, index) => {
+              testList.push(arr.operateId);
+            });
+            table.render({
+              elem: '#testList',
+              height: 260, //固定值
+              loading: true,
+              data: checkStatus.data,
+              page:false,
+              limit:9999999,
+              cols: [
+                [
+                  //表头
+                  { type: 'checkbox', fixed: 'left' },
+                  {
+                    field: 'stationName',
+                    title: '站点名称'
+                  },
+                  {
+                    field: 'taskname',
+                    title: '任务名称'
+                  },
+                  {
+                    field: 'operateType',
+                    title: '操作类型'
+                  },
+                  {
+                    field: 'createdAt',
+                    title: '创建人'
+                  },
+                  {
+                    field: 'mandatorAt',
+                    title: '命令人'
+                  },
+                  {
+                    field: 'guardianAt',
+                    title: '监护人'
+                  },
+                  {
+                    field: 'receiverAt',
+                    title: '接管人'
+                  },
+                  {
+                    field: 'operaterAt',
+                    title: '操作人'
+                  },
+                  {
+                    field: 'leadAt',
+                    title: '负责人'
+                  }
+                ]
+              ]
+            });
+          }
+          table.reload();
+          // table.render({
+          //   elem: '#testList',
+          //   height: 260, //固定值
+          //   url: '', //数据接口
+          //   data: checkStatus.data,
+          //   cols: [
+          //     [
+          //       //表头
+          //       {
+          //         field: 'warningDataId',
+          //         title: '工单编号',
+          //         width: 180
+          //       },
+          //       {
+          //         field: 'context',
+          //         title: '工单内容'
+          //       },
+          //       {
+          //         field: 'sex',
+          //         title: '状态'
+          //       },
+          //       {
+          //         field: 'city',
+          //         title: '缺陷描述'
+          //       },
+          //       {
+          //         field: 'sign',
+          //         title: '缺陷来源'
+          //       },
+          //       {
+          //         field: 'time',
+          //         title: '发生时间'
+          //       }
+          //     ]
+          //   ]
+          // });
         }
       });
     });
@@ -1149,6 +1523,7 @@ layui.use(
             $('#workorderType').val(
               $('#dialog-new-order button.active').text()
             );
+            $('#addcreateAt').val(userId)
             // 加载动作下拉
             $.ajax({
               url: publicUrl + '/console/selectActionByType',
@@ -1183,11 +1558,14 @@ layui.use(
                 alert('确定按钮点击');
               },
               success: function(index) {
+                $("#demoList").html('')
                 table.render({
                   elem: '#testList',
                   height: 260, //固定值
                   url: '', //数据接口
                   data: testData,
+                  page:false,
+                limit:9999999,
                   cols: [
                     [
                       //表头
@@ -1265,6 +1643,8 @@ layui.use(
                     elem: '#demo2',
                     url: '', //数据接口
                     data: listData,
+                    page:false,
+                    limit:9999999,
                     cols: [
                       [
                         //表头
@@ -1371,6 +1751,8 @@ layui.use(
                     elem: '#demo2',
                     url: '', //数据接口
                     data: listData,
+                    page:false,
+                    limit:9999999,
                     cols: [
                       [
                         //表头
@@ -1540,43 +1922,157 @@ layui.use(
                     listData[0].workorderType
                   );
                   $('#createAt').attr('data-id', listData[0].createAt);
-                  dealData(listData);
-
-                  table.render({
-                    elem: '#editTestList',
-                    height: 260, //固定值
-                    url: '', //数据接口
-                    data: listData[0].task,
-                    cols: [
+                  if(listData[0].workorderType ===1){
+                    dealData(listData);
+                    var tableData = listData[0].flawTask
+                    var tabelcols = [
                       [
                         {
-                          field: 'warningDataId',
-                          title: '工单编号',
+                          field: 'stationName',
+                          title: '电站名称',
                           width: 180
                         },
                         {
-                          field: 'context',
-                          title: '工单内容'
+                          field: 'flawGrade',
+                          title: '级别'
                         },
                         {
-                          field: 'sex',
-                          title: '状态'
+                          field: 'eliminateStatus',
+                          title: '消缺状态'
                         },
                         {
-                          field: 'city',
+                          field: 'checkStatus',
+                          title: '审核状态'
+                        },
+                        {
+                          field: 'flawDescribe',
                           title: '缺陷描述'
                         },
                         {
-                          field: 'sign',
+                          field: 'source',
                           title: '缺陷来源'
                         },
                         {
-                          field: 'time',
+                          field: 'discoverTime',
                           title: '发生时间'
                         }
                       ]
                     ]
+                  }
+                  if(listData[0].workorderType ===2){
+                    dealData(listData);
+                    var tableData = listData[0].task
+                    var tabelcols =[
+                      [
+                        {
+                          field: 'warningDataId',
+                          title: '告警工单id'
+                        },
+                        {
+                          field: 'warningGradeName',
+                          title: '告警等级'
+                        },
+                        {
+                          field: 'warningType',
+                          title: '告警类型'
+                        },
+                        {
+                          field: 'context',
+                          title: '告警内容'
+                        },
+                        {
+                          field: 'happendDate',
+                          title: '发生时间'
+                        }
+                      ]
+                    ]
+                  }
+                  if(listData[0].workorderType ===3){
+                    dealData(listData);
+                    var tableData = listData[0].breakdownTask
+                    var tabelcols = [
+                      [
+                        {
+                          field: 'stationName',
+                          title: '电站名称'
+                        },
+                        {
+                          field: 'reconnaissanceStatus',
+                          title: '勘察状态'
+                        },
+                        {
+                          field: 'eliminateStatus',
+                          title: '解除状态'
+                        },
+                        {
+                          field: 'source',
+                          title: '故障来源'
+                        },
+                        {
+                          field: 'discoverDate',
+                          title: '发生时间'
+                        }
+                      ]
+                    ]
+                  }
+                  if(listData[0].workorderType ===5){
+                    dealData(listData);
+                    var tableData = listData[0].operateTicketTask
+                    var tabelcols = [
+                      [
+                        //表头
+                        { type: 'checkbox', fixed: 'left' },
+                        {
+                          field: 'stationName',
+                          title: '站点名称'
+                        },
+                        {
+                          field: 'taskname',
+                          title: '任务名称'
+                        },
+                        {
+                          field: 'operateType',
+                          title: '操作类型'
+                        },
+                        {
+                          field: 'createdAt',
+                          title: '创建人'
+                        },
+                        {
+                          field: 'mandatorAt',
+                          title: '命令人'
+                        },
+                        {
+                          field: 'guardianAt',
+                          title: '监护人'
+                        },
+                        {
+                          field: 'receiverAt',
+                          title: '接管人'
+                        },
+                        {
+                          field: 'operaterAt',
+                          title: '操作人'
+                        },
+                        {
+                          field: 'leadAt',
+                          title: '负责人'
+                        }
+                      ]
+                    ]
+                  }
+                  
+                  table.render({
+                    elem: '#editTestList',
+                    height: 260, //固定值
+                    url: '', //数据接口
+                    data: tableData,
+                    page:false,
+                    limit:9999999,
+                    cols: tabelcols
                   });
+                  table.reload();
+                  uploadUrl = listData[0].fileUrl
                   form.val('editForm', {
                     workorderType: listData[0].workorderType, // "name": "value"
                     createAt: listData[0].createUser,
@@ -1635,7 +2131,8 @@ layui.use(
         'data-type'
       );
       formData.taskId = testList;
-      formData.createAt = '343029';
+      formData.createAt = userId;
+      formData.fileUrl = uploadUrl;
       console.log(formData);
       $.ajax({
         url: publicUrl + '/console/createWarning',
@@ -1649,6 +2146,8 @@ layui.use(
             layer.closeAll();
             layer.msg(res.message);
             getOrderList();
+          } else {
+            layer.msg(res.message);
           }
         }
       });
@@ -1663,6 +2162,7 @@ layui.use(
       formData.formId = mydetailData[0].formId;
       formData.workorderId = mydetailData[0].workorderId;
       formData.stepId = mydetailData[0].stepId;
+      formData.fileUrl = uploadUrl;
       console.log(formData);
       $.ajax({
         url: publicUrl + '/console/updateWarning',
@@ -1675,7 +2175,17 @@ layui.use(
           if (res.code === 200) {
             layer.closeAll();
             layer.msg(res.message);
-            getMyOrderList();
+            if ($('.search-content button').attr('data-type') === '2') {
+              getMyOrderList(0);
+            }
+            if ($('.search-content button').attr('data-type') === '3') {
+              getMyOrderList(1);
+            }
+            if ($('.search-content button').attr('data-type') === '4') {
+              getMyOrderList(2);
+            }
+          } else {
+            layer.msg(res.message);
           }
         }
       });
@@ -1683,54 +2193,193 @@ layui.use(
     });
     // 搜索任务
     $('#search-test').click(function() {
+      var datasearch = form.val('searchForm4');
+      if($('#dialog-new-order button.active').attr("data-type")==="5"){
+        var serachContent = datasearch.testName
+      } else {
+        var serachContent = datasearch.serachContent
+      }
       $.ajax({
-        url: publicUrl + '/console/selectWarningData',
+        url: publicUrl + '/console/selectData',
         type: 'post',
         contentType: 'application/json;charset=utf-8',
         data: JSON.stringify({
-          warningDataId: ''
+          workorderType: $('#dialog-new-order button.active').attr("data-type"),
+          serachContent:serachContent
         }),
         // 用于设置响应体的类型 注意 跟 data 参数没关系！！！
         dataType: 'json',
         success: function(res) {
           if (res.code === 200) {
-            table.render({
-              elem: '#addtestList',
-              height: 260, //固定值
-              loading: true,
-              data: res.data,
-              cols: [
-                [
-                  //表头
-                  { type: 'checkbox', fixed: 'left' },
-                  {
-                    field: 'warningDataId',
-                    title: '工单编号',
-                    width: 180
-                  },
-                  {
-                    field: 'context',
-                    title: '工单内容'
-                  },
-                  {
-                    field: 'sex',
-                    title: '状态'
-                  },
-                  {
-                    field: 'city',
-                    title: '缺陷描述'
-                  },
-                  {
-                    field: 'sign',
-                    title: '缺陷来源'
-                  },
-                  {
-                    field: 'time',
-                    title: '发生时间'
-                  }
+            if($('#dialog-new-order button.active').attr("data-type")==="1"){
+              table.render({
+                elem: '#addtestList',
+                height: 260, //固定值
+                loading: true,
+                data: res.data.flawTask,
+                page:false,
+                limit:9999999,
+                cols: [
+                  [
+                    //表头
+                    { type: 'checkbox', fixed: 'left' },
+                    {
+                      field: 'stationName',
+                      title: '电站名称',
+                      width: 180
+                    },
+                    {
+                      field: 'flawGrade',
+                      title: '级别'
+                    },
+                    {
+                      field: 'eliminateStatus',
+                      title: '消缺状态'
+                    },
+                    {
+                      field: 'checkStatus',
+                      title: '审核状态'
+                    },
+                    {
+                      field: 'flawDescribe',
+                      title: '缺陷描述'
+                    },
+                    {
+                      field: 'source',
+                      title: '缺陷来源'
+                    },
+                    {
+                      field: 'discoverTime',
+                      title: '发生时间'
+                    }
+                  ]
                 ]
-              ]
-            });
+              });
+            }
+            if($('#dialog-new-order button.active').attr("data-type")==="2"){
+              table.render({
+                elem: '#addtestList',
+                height: 260, //固定值
+                loading: true,
+                data: res.data.task,
+                page:false,
+                limit:9999999,
+                cols: [
+                  [
+                    //表头
+                    { type: 'checkbox', fixed: 'left' },
+                    {
+                      field: 'warningDataId',
+                      title: '告警工单id'
+                    },
+                    {
+                      field: 'warningGradeName',
+                      title: '告警等级'
+                    },
+                    {
+                      field: 'warningType',
+                      title: '告警类型'
+                    },
+                    {
+                      field: 'context',
+                      title: '告警内容'
+                    },
+                    {
+                      field: 'happendDate',
+                      title: '发生时间'
+                    }
+                  ]
+                ]
+              });
+            }
+            if($('#dialog-new-order button.active').attr("data-type")==="3"){
+              table.render({
+                elem: '#addtestList',
+                height: 260, //固定值
+                loading: true,
+                data: res.data.breakdownTask,
+                page:false,
+                limit:9999999,
+                cols: [
+                  [
+                    //表头
+                    { type: 'checkbox', fixed: 'left' },
+                    {
+                      field: 'stationName',
+                      title: '电站名称'
+                    },
+                    {
+                      field: 'reconnaissanceStatus',
+                      title: '勘察状态'
+                    },
+                    {
+                      field: 'eliminateStatus',
+                      title: '解除状态'
+                    },
+                    {
+                      field: 'source',
+                      title: '故障来源'
+                    },
+                    {
+                      field: 'discoverDate',
+                      title: '发生时间'
+                    }
+                  ]
+                ]
+              });
+            }
+            if($('#dialog-new-order button.active').attr("data-type")==="5"){
+              table.render({
+                elem: '#addtestList',
+                height: 260, //固定值
+                loading: true,
+                data: res.data.operateTicketTask,
+                page:false,
+                limit:9999999,
+                cols: [
+                  [
+                    //表头
+                    { type: 'checkbox', fixed: 'left' },
+                    {
+                      field: 'stationName',
+                      title: '站点名称'
+                    },
+                    {
+                      field: 'taskname',
+                      title: '任务名称'
+                    },
+                    {
+                      field: 'operateType',
+                      title: '操作类型'
+                    },
+                    {
+                      field: 'createdAt',
+                      title: '创建人'
+                    },
+                    {
+                      field: 'mandatorAt',
+                      title: '命令人'
+                    },
+                    {
+                      field: 'guardianAt',
+                      title: '监护人'
+                    },
+                    {
+                      field: 'receiverAt',
+                      title: '接管人'
+                    },
+                    {
+                      field: 'operaterAt',
+                      title: '操作人'
+                    },
+                    {
+                      field: 'leadAt',
+                      title: '负责人'
+                    }
+                  ]
+                ]
+              });
+            }
             table.reload();
           }
         }
